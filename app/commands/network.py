@@ -55,6 +55,6 @@ def ports_command() -> str:
             proc_name = "N/A"
         proto = "TCP" if conn.type == 1 else "UDP"
         addr = f"{conn.laddr.ip}:{conn.laddr.port}"
-        result += f"{proto:<10} {addr:<25} {str(conn.pid or 'N/A'):<10} {proc_name}\n"
+        result += f"{proto:<10} {addr:<25} {str(conn.pid or 'N/A'):<10} {proc_name}"
     return result
 
