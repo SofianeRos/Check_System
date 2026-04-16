@@ -1,90 +1,85 @@
 class Config:
-    # config principale de l'application
-    
-    # Aplication
-    APP_NAME = "Check System"
-    APP_VERSION = "1.0.0"
-    DEBUG = True
-    
-    # serveur flask
-    FLASK_HOST = "127.0.0.1"
-    FLASK_PORT = 5000
-    
-    #Monitoring
-    STAT_REFRESH_INTERVAL = 3  # en secondes
-    CPU_INTERVAL = 1  # en secondes pou CPU
-    MAX_HISTORY_SIZE = 50 # nombre max de commande en historique 
-    
-    #Limites d'affichage
-    MAX_PROCESSES_DISPLAY = 10 
-    MAX_SERVICES_DISPLAY = 20
-    MAX_LOGS_DISPLAY = 10
-    
-    #Seuils d'alerte
-    CPU_WARNING_THRESHOLD = 70  # en pourcentage
-    CPU_CRITICAL_THRESHOLD = 90  # en pourcentage
-    
-    
-    RAM_WARNING_THRESHOLD = 75 # en pourcentage
-    RAM_CRITICAL_THRESHOLD = 90  # en pourcentage
-    
-    
-    DISK_WARNING_THRESHOLD = 80  # en pourcentage
-    DISK_CRITICAL_THRESHOLD = 90  # en pourcentage
-    
-    TEMPERATURE_WARNING_THRESHOLD = 75  # en degrés Celsius
-    TEMPERATURE_CRITICAL_THRESHOLD = 90  # en degrés Celsius
-    
-    
-    #score de santé
-    HEALTH_PENALTY_HIGH_CPU = 10
-    HEALTH_PENALTY_CRITICAL_CPU = 20
-    
-    HEALTH_PENALTY_HIGH_RAM = 10
-    HEALTH_PENALTY_CRITICAL_RAM = 20
-    
-    HEALTH_PENALTY_HIGH_DISK = 10
-    HEALTH_PENALTY_CRITICAL_DISK = 20
-    
-    HEALTH_PENALTY_HIGH_TEMP = 15
-    
-    #ping
-    PING_COUNT = 2 # nombre de ping à envoyer pour le test de connectivité
-    
-    #securité
-    REQUIRE_AUTH = False  # activer ou désactiver l'authentification pour accéder à l'application
-    SECRET_KEY = "votre_clé_secrète_ici"  # clé secrète pour les sessions Flask (à changer en production)
-    
-    #export
-    EXPORT_DIR = "exports"  # répertoire où les exports seront sauvegardés
-    EXPORT_FORMAT = "txt" # format d'export (txt, csv, json)
-    
-    #interface 
-    COMMANDS_COLLAPSED_BY_DEFAUT = False
-    SHOW_QUICK_STATS = True
-    ENABLE_NOTIFICATIONS = True
-    
-    #development
-    ENABLE_PROFILING = False  # activer ou désactiver le profiling pour les performances
-    LOG_COMMANDS = True  # activer ou désactiver le logging des commandes exécutées
-    
-# categories de commandes pour le filtrage
+  #configuration principale de l'application
+
+  # Application
+  APP_NAME = "Check System"
+  VERSION = "1.0"
+  DEBUG = True
+
+  # Serveur Flask
+  HOST = "127.0.0.1"
+  PORT = 5000
+
+  # Monitoring
+  STAT_REFRESH_INTERAL = 3 # secondes entre les mise a jour stats
+  CPU_INTERVAL = 1 # seconde pour mesure CPU
+  MAX_HISTORY_SIZE = 50 # nombre max de commande en historique
+
+  #Limites d'affichage
+  MAX_PROCESS_DISPLAY = 10
+  MAX_SERVICES_DISPLAY = 20
+  MAX_LOGS_DISPLAY = 10
+
+  # Seuils d'alert (en pourcentage)
+  CPU_WARNING_THRESHOLD = 70
+  CPU_CRITICAL_THRESHOLD = 90
+
+  RAM_WARNING_THRESHOLD = 75
+  RAM_CRITICAL_THRESHOLD = 90
+
+  DISK_WARNING_THRESHOLD = 80
+  DISK_CRITICAL_THRESHOLD = 90
+
+  TEMP_WARNING_THRESHOLD = 75 # en °C
+  TEMP_CRITICAL_THRESHOLD = 85 # en °C
+
+  # Score de santé
+  HEALTH_PENALTY_CPU_HIGH = 10
+  HEALTH_PENALTY_CPU_CRITICAL = 20
+
+  HEALTH_PENALTY_RAM_HIGH = 15
+  HEALTH_PENALTY_RAM_CRITICAL = 25
+
+  HEALTH_PENALTY_DISK_HIGH = 10
+  HEALTH_PENALTY_DISK_CRITICAL = 20
+
+  HEALTH_PENALTY_TEMP_HIGH = 15
+
+  #ping
+  PING_COUNT = 2 # nombre de pings
+
+  # securité
+  REQUIRE_AUTH = False
+  SECRET_KEY = "changer-en-production"
+
+  # export
+  EXPORT_DIRECTORY = "exports" # dossier pour export
+  EXPORT_FORMAT = "txt"
+
+  # interface
+  COMMANDS_COLLAPSED_BY_DEFAUT = False # replier la liste des commandes
+  SHOW_QUICK_STATS = True #afficher les stats rapides en header
+  ENABLE_NOTIFICATIONS = True # notification javascript
+
+  # developpemnt
+  ENABLE_PROFILING = False  # Profiling des performances
+  LOG_COMMANDS = True  # Logger les commandes exécutées
+
+# categories de commandes pour filtrage
 COMMAND_CATEGORIES = {
-    "monitoring": ["cpu", "ram", "espace", "dashboard","health"],
-    "network": ["ping", "network", "ports"],
-    "process": ["processus", "services","kill"],
-    "security": ["users", "security", "logs"],
-    "diagnostic": ["sysinfo", "uptime", "temp", "battery"]
+  "monitoring": ["cpu", "ram", "espace", "dashboard", "health"],
+  "network": ["ping", "network", "ports"],
+  "process": ["processus", "services", "kill"],
+  "security": ["users", "security", "logs"],
+  "diagnostic": ["sysinfo", "uptime", "temp", "battery"]
 }
 
-# messages personalises
-
+# messages personnalisés
 MESSAGES = {
-    "welcome": "🤖​ Bienvenue sur Check System !",
-    "error_permission": "❌ Vous n'avez pas la permission d'accéder à cette ressource.",
-    "error_not_found": "❌ Ressource non trouvée.",
-    "error_server": "❌ Une erreur est survenue côté serveur.",
-    "error_invalid_command": "❌ Commande invalide ou paramètres manquants.",
-    "success_kill": "✅ Processus arrêté avec succès.",
-    "info_no_battery": "🔌​ Aucune batterie détectée sur ce système.",
+  "welcome": "🤖 Bienvenue sur Check System",
+  "error_permission": "❌ Permission refusée. Droits administrateur requis",
+  "error_not_found": "❌ Ressource non trouvée",
+  "error_invalid_command": "❌ Commande invalide. Tapez 'help' pour l'aide",
+  "success_kill": "✅ Processus arrêté avec succès",
+  "info_no_battery": "🔌 Pas de batterie détectée (PC de bureau)"
 }

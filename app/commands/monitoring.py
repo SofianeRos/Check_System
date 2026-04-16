@@ -14,7 +14,7 @@ def cpu_command() -> str:
     cpu_avg = psutil.cpu_percent(interval=1)
     result = f"⚙️ CPU Utilisation Globale: {cpu_avg}%\n\n"
     result += "Détails par cœur:\n"
-    for index, percent in enumerate(cpu_percent): # enumerate sert à
+    for index, percent in enumerate(cpu_percent): 
         result += f"  Core {index}: {build_progress_bar(percent)} {percent}%\n"
     return result
 
@@ -195,4 +195,3 @@ def health_command() -> str:
             result += f"   {warning}\n"
 
     return result
- 

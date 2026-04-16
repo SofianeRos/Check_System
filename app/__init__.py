@@ -1,36 +1,36 @@
-from pathlib import Path # pour gerer les chemins de fichiers dans l'application
+from pathlib import Path # pour gerer les chemins de fichiers dans l'appli
 
-from flask import Flask # framework web pour créer l'application
+from flask import Flask # framwork web principal
 
-from config import Config # importation de la configuration de l'application
+from config import Config # Configuration centralisée de l'application
 
-from .routes.api import api_blueprint # routes de l'api
-from .routes.web import web_blueprint # routes web
+from .routes.api import api_blueprint #Routes API (endpoint JSON)
+from .routes.web import web_blueprint # Routes web (pages HTML)
 
-# configuartion des chemins 
-BASE_DIR = Path(__file__).resolve().parent.parent # être à la racine du projet
+# configuration des chemin
+BASE_DIR = Path(__file__).resolve().parent.parent # etre a la racine du projet (parent du dossier app)
 
-# dossier pour les templates html et les fichiers statiques (css, js, images)
+#dossier pour les templates html et fichiers statiques
 TEMPLATES_DIR = BASE_DIR / "templates"
 STATIC_DIR = BASE_DIR / "static"
 
-#factory pattern 
+# FACTORY PATTERN
 def create_app() -> Flask:
-    # Crée l'instance flask avec les emplacements des templates et des fichiers statics
-    app = Flask (
-        __name__,
-        template_folder=str(TEMPLATES_DIR),
-        static_folder=str(STATIC_DIR)
-    )
-    
-    # charger la config depuis config.py
-    app.config.from_object(Config)
-    
-    # on enregistre les routes webs 
-    app.register_blueprint(web_blueprint)
-    
-    # on enregistre les routes api
-    app.register_blueprint(api_blueprint)
-    
-    # retourne l'application configurée
-    return app
+  # Crée l'instance Flask avec les emplacements des template et des fichiers statiques
+  app = Flask(
+    __name__,
+    template_folder=str(TEMPLATES_DIR),
+    static_folder=str(STATIC_DIR)
+  )
+
+  # charge la configuration depuis config.py
+  app.config.from_object(Config)
+
+  #on enregistre les routes web (page HTML)
+  app.register_blueprint(web_blueprint)
+
+  #enregistre les route d'API (endpoint JSON)
+  app.register_blueprint(api_blueprint)
+
+  # retourne l'application configurée et prête à être utilisée
+  return app
