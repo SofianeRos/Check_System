@@ -1,6 +1,7 @@
 //VARIABLES
 let isCommandListVisible = true;
-let commandHistory = JSON.parse(localStorage.getItem("cmdHistory") || []);
+// ✅ CORRECTION 1 : Ajout des guillemets autour de []
+let commandHistory = JSON.parse(localStorage.getItem("cmdHistory") || "[]");
 let historyIndex = -1;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
- * methode qui affiche les stats rapide
+ * méthode qui affiche les stats rapide
  * @returns Object
  */
 async function loadQuickStats() {
@@ -92,7 +93,9 @@ function toggleCommandList() {
 function executeCommand(cmd) {
   saveToHistory(cmd);
   document.getElementById("cmdInput").value = cmd;
-  document.getElementById("commandForm").onsubmit();
+  
+  // ✅ CORRECTION 2 : Utilisation de requestSubmit() à la place de onsubmit()
+  document.getElementById("commandForm").requestSubmit();
 }
 
 /**
@@ -110,6 +113,7 @@ function saveToHistory(cmd) {
     localStorage.setItem("cmdHistory", JSON.stringify(commandHistory));
   }
 }
+
 /**
  * efface tout l'historique des commandes après confirmation
  * supprime aussi les données du localStorage
@@ -123,6 +127,7 @@ function clearHistory() {
     alert("✅ Historique effacé");
   }
 }
+
 /**
  * exporte les résultats en téléchargeant un fichier texte
  * @returns {void}
@@ -130,6 +135,7 @@ function clearHistory() {
 function exportResults() {
   downloadResult();
 }
+
 /**
  * copie le dernier résultat dans le presse-papier
  * affiche une notification si aucun résultat n'est disponible
