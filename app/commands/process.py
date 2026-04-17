@@ -16,7 +16,7 @@ def process_command() -> str:
   result+= "─" * 60 + "\n"
   for proc in processes:
     result += (
-      f"{proc['pid']:<8 {proc['cpu_percent'] or 0:<8.1f}}"
+      f"{proc['pid']:<8} {proc['cpu_percent'] or 0:<8.1f}"
       f"{proc['memory_percent'] or 0:<8.1f} {proc['name']}\n"
     )
   return result

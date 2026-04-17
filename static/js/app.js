@@ -1,6 +1,5 @@
 //VARIABLES
 let isCommandListVisible = true;
-// ✅ CORRECTION 1 : Ajout des guillemets autour de []
 let commandHistory = JSON.parse(localStorage.getItem("cmdHistory") || "[]");
 let historyIndex = -1;
 
@@ -10,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
- * méthode qui affiche les stats rapide
+ * methode qui affiche les stats rapide
  * @returns Object
  */
 async function loadQuickStats() {
@@ -93,9 +92,7 @@ function toggleCommandList() {
 function executeCommand(cmd) {
   saveToHistory(cmd);
   document.getElementById("cmdInput").value = cmd;
-  
-  // ✅ CORRECTION 2 : Utilisation de requestSubmit() à la place de onsubmit()
-  document.getElementById("commandForm").requestSubmit();
+  document.getElementById("commandForm").submit();
 }
 
 /**
@@ -113,7 +110,6 @@ function saveToHistory(cmd) {
     localStorage.setItem("cmdHistory", JSON.stringify(commandHistory));
   }
 }
-
 /**
  * efface tout l'historique des commandes après confirmation
  * supprime aussi les données du localStorage
@@ -127,7 +123,6 @@ function clearHistory() {
     alert("✅ Historique effacé");
   }
 }
-
 /**
  * exporte les résultats en téléchargeant un fichier texte
  * @returns {void}
@@ -135,7 +130,6 @@ function clearHistory() {
 function exportResults() {
   downloadResult();
 }
-
 /**
  * copie le dernier résultat dans le presse-papier
  * affiche une notification si aucun résultat n'est disponible
@@ -194,4 +188,18 @@ function showNotification(message) {
     notif.classList.remove("show");
     setTimeout(() => notif.remove(), 300);
   }, 2000);
+}
+
+function fillPingCommand(){
+  const host = prompt("🌐 Entrez l'hôte à pinguer:\n\n 8.8.8.8 (DNS Google)\n 1.1.1.1 (Cloudflare) ")
+  if(host){
+    executeCommand("ping " + host)
+  }
+}
+
+function fillKillCommand(){
+  const pid = prompt("⚠️ Entrez le PID du processus à arrêter:\n\n(Utilisez 'processus' pour voir la liste)", "");
+  if(pid && !isNaN(pid)){
+    executeCommand("kill " + pid);
+  }
 }
